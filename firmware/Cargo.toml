@@ -1,0 +1,58 @@
+[package]
+edition = "2021"
+name = "firmware"
+version = "0.1.0"
+license = "MIT"
+
+[dependencies]
+embassy-embedded-hal = { version = "0.2.0", features = ["defmt"], git = "https://github.com/embassy-rs/embassy", rev = "8803128707b8bd9fc9dcea392a62dfd42aa822d2" }
+embassy-sync = { version = "0.6.0", features = ["defmt"], git = "https://github.com/embassy-rs/embassy", rev = "8803128707b8bd9fc9dcea392a62dfd42aa822d2" }
+embassy-executor = { version = "0.6.0", features = [
+    "task-arena-size-32768",
+    "arch-cortex-m",
+    "executor-thread",
+    "executor-interrupt",
+    "defmt",
+    "integrated-timers",
+], git = "https://github.com/embassy-rs/embassy", rev = "8803128707b8bd9fc9dcea392a62dfd42aa822d2" }
+embassy-time = { version = "0.3", features = [
+    "defmt",
+    "defmt-timestamp-uptime",
+], git = "https://github.com/embassy-rs/embassy", rev = "8803128707b8bd9fc9dcea392a62dfd42aa822d2" }
+embassy-rp = { version = "0.2.0", features = [
+    "defmt",
+    "unstable-pac",
+    "time-driver",
+    "critical-section-impl",
+    "rp2040"
+], git = "https://github.com/embassy-rs/embassy", rev = "8803128707b8bd9fc9dcea392a62dfd42aa822d2" }
+embassy-usb = { version = "0.3.0", features = ["defmt"], git = "https://github.com/embassy-rs/embassy", rev = "8803128707b8bd9fc9dcea392a62dfd42aa822d2" }
+embassy-futures = { version = "0.1.1", git = "https://github.com/embassy-rs/embassy", rev = "8803128707b8bd9fc9dcea392a62dfd42aa822d2" }
+
+defmt = "0.3"
+defmt-rtt = "0.4"
+
+cortex-m = { version = "0.7.6", features = ["inline-asm"] }
+cortex-m-rt = "0.7.0"
+panic-probe = { version = "0.3", features = ["print-defmt"] }
+futures = { version = "0.3.17", default-features = false, features = [
+    "async-await",
+    "cfg-target-has-atomic",
+    "unstable",
+] }
+usbd-hid = "0.8"
+
+portable-atomic = { version = "1.7.0", features = ["critical-section"] }
+log = "0.4"
+pio-proc = "0.2"
+pio = "0.2.1"
+num-traits = { version = "0.2.15", default-features = false, features = ["libm"] }
+
+[profile.release]
+lto = true
+opt-level = "s"
+incremental = false
+codegen-units = 1
+# note: debug = true is okay - debuginfo isn't flashed to the device!
+debug = true
+
