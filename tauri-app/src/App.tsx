@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
-import reactLogo from "./assets/react.svg";
 import "./App.css";
 
 import { SerialPort } from "tauri-plugin-serialplugin";
 import * as os from "@tauri-apps/plugin-os";
 
 import { Slider } from "@material-tailwind/react";
-import { listen } from '@tauri-apps/api/event';
 
 function App() {
   const [thumbServoDegree, setThumbServoDegree] = useState(50);
@@ -81,12 +79,15 @@ function App() {
       <button className="mb-10 bg-white text-black p-2 rounded-xl hover:bg-gray-200" onClick={() => connect()}>reconnect</button>
 
       <h2 className="text-2xl mb-2">Thumb Servo</h2>
+      {/* @ts-ignore */}
       <Slider className="mb-7" color="blue" size="lg" value={thumbServoDegree} onChange={event => sendDegree(event, 'thumb')} />
 
       <h2 className="text-2xl mb-2">Arm Servo</h2>
+      {/* @ts-ignore */}
       <Slider className="mb-7" color="red" size="lg" value={armServoDegree} onChange={event => sendDegree(event, 'arm')} />
 
       <h2 className="text-2xl mb-2">Fingers Servo</h2>
+      {/* @ts-ignore */}
       <Slider className="mb-7" color="green" size="lg" value={fingersServoDegree} onChange={event => sendDegree(event, 'fingers')} />
 
     </main>
