@@ -23,6 +23,8 @@ jobs:
             args: ''
           - platform: 'windows-latest'
             args: ''
+    env:
+      working-directory: ./tauri-app
 
     runs-on: ${{ matrix.platform }}
     steps:
@@ -59,5 +61,5 @@ jobs:
           releaseBody: 'See the assets to download this version and install.'
           releaseDraft: true
           prerelease: false
-          projectPath: './app/'
+          projectPath: ${{env.working-directory}}
           args: ${{ matrix.args }}
