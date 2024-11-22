@@ -18,7 +18,7 @@ function App() {
     const ports = await SerialPort.available_ports();
 
     for (const [name, info] of Object.entries(ports)) {
-      if (info.manufacturer != 'Devils Prosthetics') continue;
+      if (info.manufacturer != 'Devils Prosthetics' && info.serial_number.toUpperCase() !== 'DEVIL') continue;
 
       if (os.platform() == "macos" && name.includes('tty')) continue;
 
@@ -62,7 +62,9 @@ function App() {
 
     console.log(Uint8Array.from(command.split('').map(letter => letter.charCodeAt(0))));
 
-    if (serialPort) serialPort.write(command);
+    if (serialPort) {
+      serialPort.write(command);
+    } 
   }
 
   return (
